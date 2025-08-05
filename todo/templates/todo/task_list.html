@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">📝 Task List</h2>
+    
+    <div class="text-end mb-3">
+        <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add Task</a>
+    </div>
+
+    {% if tasks %}
+        <ul class="list-group">
+            {% for task in tasks %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">{{ task.title }}</h5>
+                        <p class="mb-1 text-muted">{{ task.description }}</p>
+                        <small>Status: {% if task.completed %}<span class="text-success">✅ Completed</span>{% else %}<span class="text-danger">❌ Not Done</span>{% endif %}</small>
+                    </div>
+                    <div>
+                        <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-warning me-2">Edit</a>
+                        <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-center text-muted">No tasks found.</p>
+    {% endif %}
+</div>
+</body>
+</html>
+
